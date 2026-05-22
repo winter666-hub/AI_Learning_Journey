@@ -37,9 +37,35 @@
 
 ---
 
+## Repository Structure
+AI_Learning_Journey/
+├── Machine_Learning/
+│   ├── 01_Linear_Regression/
+│   │   ├── 01_model_representation.ipynb
+│   │   ├── 02_cost_function.ipynb
+│   │   ├── 03_gradient_descent.ipynb
+│   │   ├── 04_vectorization.ipynb
+│   │   ├── 05_multivariate_model.ipynb
+│   │   ├── 06_multivariate_gradient_descent.ipynb
+│   │   ├── 07_feature_scaling.ipynb
+│   │   └── 08_polynomial_regression.ipynb
+│   ├── 02_Classification/
+│   │   └── 09_classification_linear_regression_limit.ipynb
+│   └── 03_Logistic_Regression/
+│       ├── 10_sigmoid_function.ipynb
+│       ├── 11_decision_boundary.ipynb
+│       ├── 12_logistic_loss.ipynb
+│       ├── 13_logistic_cost.ipynb
+│       ├── 14_gradient_descent.ipynb
+│       ├── 15_overfitting.ipynb
+│       └── 16_regularization.ipynb
+├── requirements.txt
+└── README.md
+
 ## Current Projects
- - HR Attrition Prediction Project
+- HR Attrition Prediction Project
   - 머신러닝 기반 직원 이직 예측 프로젝트 진행 중
+  - [hr-attrition-prediction](https://github.com/winter666-hub/hr-attrition-prediction)
 
 ---
 
@@ -49,12 +75,3 @@
 - FastAPI Backend
 - Docker
 - LLM-based Application Development
-
----
-
-## Tech Stack
-- Python
-- NumPy
-- Pandas
-- scikit-learn
-- Git / GitHub
