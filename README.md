@@ -17,7 +17,7 @@
 
 ---
 
-## 현재 학습 내용
+## Topics
 
 - Python 기초
 - Numpy / Pandas
