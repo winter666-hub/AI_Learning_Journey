@@ -38,6 +38,8 @@
 ---
 
 ## Repository Structure
+```
+
 AI_Learning_Journey/
 ├── Machine_Learning/
 │   ├── 01_Linear_Regression/
@@ -61,6 +63,8 @@ AI_Learning_Journey/
 │       └── 16_regularization.ipynb
 ├── requirements.txt
 └── README.md
+
+```
 
 ## Current Projects
 - HR Attrition Prediction Project
