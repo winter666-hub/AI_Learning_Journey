@@ -10,3 +10,20 @@ __pycache__/
 
 # vscode
 .vscode/
+
+# dataset
+data/
+
+# model weights
+*.pth
+*.pt
+*.ckpt
+*.onnx
+
+# logs
+runs/
+wandb/
+
+# mac/windows
+.DS_Store
+Thumbs.db
