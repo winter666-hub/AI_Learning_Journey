@@ -37,10 +37,33 @@
 
 ---
 
+### Deep Learning
+- Tensors
+- Datasets & DataLoaders
+- Transforms
+- Build Model
+- Autograd
+- Optimization Loop & Loss Function
+- Save & Load Model
+
+---
+
 ## Repository Structure
 ```
 
 AI_Learning_Journey/
+├── Deep_Learning/
+│   ├── notebooks/
+│   │   ├── 01_quickstart.ipynb
+│   │   ├── 02_tensors.ipynb
+│   │   ├── 03_datasets_dataloaders.ipynb
+│   │   ├── 04_transforms.ipynb
+│   │   ├── 05_build_neural_network.ipynb
+│   │   ├── 06_autograd.ipynb
+│   │   ├── 07_optimization_model_parameters.ipynb
+│   │   └── 08_save_and_load_model.ipynb
+│   ├── data/
+│   └── models/
 ├── Machine_Learning/
 │   ├── 01_Linear_Regression/
 │   │   ├── 01_model_representation.ipynb
@@ -67,15 +90,13 @@ AI_Learning_Journey/
 ```
 
 ## Current Projects
-- HR Attrition Prediction Project
-  - 머신러닝 기반 직원 이직 예측 프로젝트 진행 중
+- HR Attrition Prediction Project (완료)
+  - CatBoost기반 직원 이직 예측, FastAPI + Supabase + Docker 풀스택 구현
   - [hr-attrition-prediction](https://github.com/winter666-hub/hr-attrition-prediction)
 
 ---
 
 ## Future Goals
-- Neural Network / Deep Learning
 - SQL & Data Engineering
-- FastAPI Backend
-- Docker
 - LLM-based Application Development
+- Service Implementation
