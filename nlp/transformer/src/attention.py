@@ -12,8 +12,10 @@ def scaled_dot_product_attention(Q, K, V, mask=None):
     if mask is not None:
         scores = scores.masked_fill(mask==0, float('-inf'))
     
-    attn_weights = F.softmax(scores)
+    attn_weights = F.softmax(scores, dim=-1)
 
     output = torch.matmul(attn_weights, V)
 
     return scores, attn_weights, output
+
+print("attention.py loaded")
