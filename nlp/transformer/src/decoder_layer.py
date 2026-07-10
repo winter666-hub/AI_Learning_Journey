@@ -29,9 +29,9 @@ class DecoderLayer(nn.Module):
 
         # 2. Encoder의 출력 정보를 참고하는 Cross Attention
         cross_output = self.cross_attention(
-            x,
-            encoder_output,
-            encoder_output
+            x,              # Decoder가 현재까지 생성한 정보 (Q)
+            encoder_output, # Encoder가 이해한 원문 정보 (K)
+            encoder_output  # Encoder가 전달할 정보 (V) 
         )
         x = self.add_norm2(x, cross_output)
         
