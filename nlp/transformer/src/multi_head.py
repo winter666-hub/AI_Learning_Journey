@@ -17,7 +17,7 @@ class MultiHeadAttention(nn.Module):
 
         self.W_o = nn.Linear(d_model, d_model)
 
-    def forward(self, Q, K, V):
+    def forward(self, Q, K, V, mask=None):
         Q = self.W_q(Q)
         K = self.W_k(K)
         V = self.W_v(V)
@@ -33,7 +33,7 @@ class MultiHeadAttention(nn.Module):
         K = K.transpose(1, 2)
         V = V.transpose(1, 2)
 
-        scores, attn_weights, output = scaled_dot_product_attention(Q, K, V)
+        scores, attn_weights, output = scaled_dot_product_attention(Q, K, V, mask)
 
         output = output.transpose(1, 2)
         output = output.reshape(batch_size, seq_len, self.num_heads * self.head_dim)

@@ -22,9 +22,9 @@ class DecoderLayer(nn.Module):
         self.feed_forward = FeedForwardNetwork(d_model, d_ff)
         self.add_norm3= AddNorm(d_model)
 
-    def forward(self, x, encoder_output):
+    def forward(self, x, encoder_output, mask=None):
         # 1. Decoder 내부 Self-Attention
-        attention_output = self.self_attention(x, x, x)
+        attention_output = self.self_attention(x, x, x, mask)
         x = self.add_norm1(x, attention_output)
 
         # 2. Encoder의 출력 정보를 참고하는 Cross Attention

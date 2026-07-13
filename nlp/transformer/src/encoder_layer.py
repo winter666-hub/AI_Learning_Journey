@@ -14,8 +14,8 @@ class EncoderLayer(nn.Module):
         self.feed_forward = FeedForwardNetwork(d_model, d_ff)
         self.add_norm2 = AddNorm(d_model)
     
-    def forward(self, x):
-        attention_output = self.self_attention(x, x, x)
+    def forward(self, x, mask=None):
+        attention_output = self.self_attention(x, x, x, mask)
         x = self.add_norm1(x, attention_output)
 
         ffn_output = self.feed_forward(x)

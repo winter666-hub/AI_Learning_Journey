@@ -18,9 +18,9 @@ class Encoder(nn.Module):
             ]
         )
 
-    def forward(self, x):
+    def forward(self, x, mask=None):
         # 각 EncoderLayer를 순서대로 통과
         for layer in self.layers:
-            x = layer(x)
+            x = layer(x, mask)
 
         return x

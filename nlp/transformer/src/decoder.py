@@ -16,10 +16,10 @@ class Decoder(nn.Module):
             ]
         )
 
-    def forward(self, x, encoder_output):
+    def forward(self, x, encoder_output, mask=None):
         for layer in self.layers:
             # x : 이전 DecoderLayer의 출력
             # encoder_output : Encoder가 이해한 원문 정보
-            x = layer(x, encoder_output)
+            x = layer(x, encoder_output, mask)
             
         return x
