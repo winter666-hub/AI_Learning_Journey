@@ -1,4 +1,3 @@
-import torch
 from torch import nn
 
 from src.multi_head import MultiHeadAttention
@@ -19,6 +18,6 @@ class EncoderLayer(nn.Module):
         x = self.add_norm1(x, attention_output)
 
         ffn_output = self.feed_forward(x)
-        x = self.add_norm2(ffn_output)
+        x = self.add_norm2(x, ffn_output)
 
         return x

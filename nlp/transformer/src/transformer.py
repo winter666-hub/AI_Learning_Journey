@@ -1,7 +1,8 @@
 from torch import nn
-from positional_encoding import PositionalEncoding
+from src.positional_encoding import PositionalEncoding
 from src.encoder import Encoder
 from src.decoder import Decoder
+from src.attention import generate_mask
 
 class Transformer(nn.Module):
     def __init__(self,
@@ -44,8 +45,12 @@ class Transformer(nn.Module):
         tgt = self.decoder_embedding(tgt)
         # 위치 정보 추가
         tgt = self.positional_encoding(tgt)
+
+        seq_len = tgt.size(1)
+        mask = generate_mask(seq_len).to(tgt.device)
+
         # Encoder의 정보를 참고하여 다음 단어 생성
-        decoder_output = self.decoder(tgt, encoder_output)
+        decoder_output = self.decoder(tgt, encoder_output, mask)
 
         # 단어별 점수(logits) 계산
         output = self.fc(decoder_output)

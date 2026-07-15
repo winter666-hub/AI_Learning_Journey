@@ -1,4 +1,3 @@
-import torch
 from torch import nn
 from src.attention import scaled_dot_product_attention
 class MultiHeadAttention(nn.Module):
@@ -23,11 +22,13 @@ class MultiHeadAttention(nn.Module):
         V = self.W_v(V)
 
         batch_size = Q.size(0)
-        seq_len = Q.size(1)
+        q_seq_len = Q.size(1)
+        k_seq_len = K.size(1)
+        v_seq_len = V.size(1)
 
-        Q = Q.reshape(batch_size, seq_len, self.num_heads, self.head_dim)
-        K = K.reshape(batch_size, seq_len, self.num_heads, self.head_dim)
-        V = V.reshape(batch_size, seq_len, self.num_heads, self.head_dim)
+        Q = Q.reshape(batch_size, q_seq_len, self.num_heads, self.head_dim)
+        K = K.reshape(batch_size, k_seq_len, self.num_heads, self.head_dim)
+        V = V.reshape(batch_size, v_seq_len, self.num_heads, self.head_dim)
 
         Q = Q.transpose(1, 2)
         K = K.transpose(1, 2)
@@ -36,7 +37,7 @@ class MultiHeadAttention(nn.Module):
         scores, attn_weights, output = scaled_dot_product_attention(Q, K, V, mask)
 
         output = output.transpose(1, 2)
-        output = output.reshape(batch_size, seq_len, self.num_heads * self.head_dim)
+        output = output.reshape(batch_size, q_seq_len, self.num_heads * self.head_dim)
         output = self.W_o(output)
 
         return output

@@ -18,4 +18,7 @@ def scaled_dot_product_attention(Q, K, V, mask=None):
 
     return scores, attn_weights, output
 
+def generate_mask(seq_len):
+    return torch.tril(torch.ones(seq_len, seq_len))
+
 print("attention.py loaded")
