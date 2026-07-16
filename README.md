@@ -90,15 +90,24 @@ AI_Learning_Journey/
 │       ├── 14_gradient_descent.ipynb
 │       ├── 15_overfitting.ipynb
 │       └── 16_regularization.ipynb
+├── nlp/
+│   └── transformer/
 ├── requirements.txt
 └── README.md
 
 ```
 
 ## Current Projects
-- HR Attrition Prediction Project (완료)
-  - CatBoost기반 직원 이직 예측, FastAPI + Supabase + Docker 풀스택 구현
-  - [hr-attrition-prediction](https://github.com/winter666-hub/hr-attrition-prediction)
+
+### Transformer from Scratch
+- Attention Is All You Need 논문을 기반으로 Transformer를 처음부터 직접 구현
+- Tokenizer, Multi-Head Attention, Encoder, Decoder, Training Pipeline, Greedy Decoding 구현
+- [Project README](./nlp/transformer/README.md)
+
+### HR Attrition Prediction Project (완료)
+- CatBoost 기반 직원 이직 예측
+- FastAPI + Supabase + Docker를 활용한 풀스택 구현
+- https://github.com/winter666-hub/hr-attrition-prediction
 
 ---
 
