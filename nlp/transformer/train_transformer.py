@@ -7,6 +7,12 @@ from src.tokenizer import Tokenizer
 from src.dataset import TranslationDataset
 from src.transformer import Transformer
 
+device = torch.device(
+    "cuda" if torch.cuda.is_available() else "cpu"
+)
+
+print(f"Device: {device}")
+
 # 1. 예제 번역 데이터
 src_sentences = [
     "나는 학생이다",
@@ -49,7 +55,7 @@ dataloader = DataLoader(
 model = Transformer(
     src_vocab_size=vocab_size,
     tgt_vocab_size=vocab_size
-)
+).to(device)
 
 # 5. Loss / Optimizer
 criterion = nn.CrossEntropyLoss()
@@ -65,9 +71,9 @@ epochs = 100
 for epoch in range(epochs):
     for batch in dataloader:
 
-        src = batch["src"]
-        tgt_input = batch["tgt_input"]
-        target = batch["target"]
+        src = batch["src"].to(device)
+        tgt_input = batch["tgt_input"].to(device)
+        target = batch["target"].to(device)
 
         # Forward
         output = model(src, tgt_input)
@@ -89,3 +95,10 @@ for epoch in range(epochs):
     )
 
 print("training complete")
+
+torch.save(
+    model.state_dict(),
+    "models/transforemr_model.pth"
+)
+
+print("model saved")
