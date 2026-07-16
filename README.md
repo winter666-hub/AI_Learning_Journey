@@ -48,6 +48,12 @@
 
 ---
 
+### Natural Language Processing
+- Transformer (from Scratch)
+- Attention Is All You Need
+
+--- 
+
 ## Repository Structure
 ```
 
