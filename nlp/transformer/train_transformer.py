@@ -1,105 +1,91 @@
 import torch
 from torch import nn
 from torch.optim import Adam
+from torch.utils.data import DataLoader
 
+from src.tokenizer import Tokenizer
+from src.dataset import TranslationDataset
 from src.transformer import Transformer
 
-# 1. 모델 설정
+# 1. 예제 번역 데이터
+src_sentences = [
+    "나는 학생이다",
+    "나는 개발자다"
+]
 
-# 입력 문장(src)의 단어 개수
-src_vocab_size = 1000
-# 출력 문장(tgt)의 단어 개수
-tgt_vocab_size = 1000
+tgt_sentences = [
+    "I am student",
+    "I am developer"
+]
 
-# Transformer 생성
-model = Transformer(
-    src_vocab_size,
-    tgt_vocab_size
+# 2. Tokenizer
+tokenizer = Tokenizer()
+
+# Vocabulary 생성
+tokenizer.build_vocab(
+    src_sentences + tgt_sentences
 )
 
-# 2. Loss, Optimizer
+# Vocabulary 크기
+vocab_size = len(tokenizer.word_to_id)
 
-# 실제 정답 token id를 비교하는 Loss
+# 3. Dataset / DataLoader
+
+dataset = TranslationDataset(
+    src_sentences,
+    tgt_sentences,
+    tokenizer,
+    max_length=6
+)
+
+dataloader = DataLoader(
+    dataset,
+    batch_size=2,
+    shuffle=True
+)
+
+# 4. Transformer 생성
+
+model = Transformer(
+    src_vocab_size=vocab_size,
+    tgt_vocab_size=vocab_size
+)
+
+# 5. Loss / Optimizer
 criterion = nn.CrossEntropyLoss()
 
-# Loss를 기반으로 모델의 weight를 수정하는 optimizer
-optimizer = Adam(model.parameters(),
-                 lr=0.0001)
-
-# 3. 입력 데이터 생성
-
-batch_size = 2
-
-# Encoder에 들어가는 원문 길이
-src_seq_len = 5
-
-# Decoder 입력 길이
-tgt_seq_len = 4
-
-# Encoder 입력
-# (batch_size, source sequence length)
-src = torch.randint(
-    0,
-    src_vocab_size,
-    (batch_size, src_seq_len)
+optimizer = Adam(
+    model.parameters(),
+    lr=0.0001
 )
 
-# Decoder 입력
-# 실제 학습에서는 <BOS>가 붙은 정답 문장
-tgt_input = torch.randint(
-    0,
-    tgt_vocab_size,
-    (batch_size, tgt_seq_len)
-)
+# 6. Training
+epochs = 100
 
-# 정답 Label
-# 실제 학습에서는 한 칸 이동한 정답
-target = torch.randint(
-    0,
-    tgt_vocab_size,
-    (batch_size, tgt_seq_len)
-)
+for epoch in range(epochs):
+    for batch in dataloader:
 
-print(src.shape)
-print(tgt_input.shape)
-print(target.shape)
+        src = batch["src"]
+        tgt_input = batch["tgt_input"]
+        target = batch["target"]
 
-# 4. Forward
+        # Forward
+        output = model(src, tgt_input)
 
-# Encoder와 Decoder를 통과하여
-# 각 위치별 단어 점수(logits)를 출력
-output = model(
-    src,
-    tgt_input
-)
+        output = output.reshape(-1, vocab_size)
+        target = target.reshape(-1)
 
-print(output.shape)
+        # Loss
+        loss = criterion(output, target)
 
-# 5. Loss 계산
+        # Backpropagation
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
 
-# 현재 (2, 4, 1000) CrossEntropyLoss는 (예측 개수, vocab_size)
-# (8, 1000)형태로 변경
-output = output.reshape(
-    -1,
-    tgt_vocab_size
-)
+    print(
+        f"Epoch [{epoch+1}/{epochs}] "
+        f"Loss : {loss.item():.4f}"
+    )
 
-# (2, 4) -> (8,)
-target = target.reshape(-1)
-
-loss = criterion(
-    output,
-    target
-)
-
-print(loss.item())
-
-
-# 6. Backpropagation
-
-# 매 학습 step마다 초기화 필요
-optimizer.zero_grad()
-loss.backward()
-optimizer.step()
-
-print("training step complete")
+print("training complete")
