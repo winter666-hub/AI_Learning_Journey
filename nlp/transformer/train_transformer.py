@@ -1,4 +1,5 @@
 import torch
+import pickle
 from torch import nn
 from torch.optim import Adam
 from torch.utils.data import DataLoader
@@ -98,7 +99,20 @@ print("training complete")
 
 torch.save(
     model.state_dict(),
-    "models/transforemr_model.pth"
+    "models/transformer_model.pth"
 )
 
 print("model saved")
+
+# Tokenizer 저장
+with open(
+    "models/tokenizer.pkl",
+    # 쓰기 모드
+    "wb"
+) as f:
+    pickle.dump(
+        tokenizer,
+        f
+    )
+
+print("tokenizer saved")
