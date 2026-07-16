@@ -1,3 +1,4 @@
+import torch
 from torch.utils.data import Dataset
 
 class TranslationDataset(Dataset):
@@ -62,7 +63,7 @@ class TranslationDataset(Dataset):
 
         # Transformer 학습에 필요한 데이터 반환
         return {
-            "src": src_ids,
-            "tgt_input": tgt_input,
-            "target": target
+            "src": torch.tensor(src_ids),
+            "tgt_input": torch.tensor(tgt_input),
+            "target": torch.tensor(target)
         }
